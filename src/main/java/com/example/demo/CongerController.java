@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+@CrossOrigin(origins= {"http://localhost:4200"})
 @RestController
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
@@ -30,7 +32,7 @@ public class CongerController {
     public ProcessInstanceResponse demandeConger(@RequestBody TDemande tDemande) {
 
         
-    	congerService.saveDemande(tDemande);
+    	//congerService.saveDemande(tDemande);
     	 return congerService.demandeConger(tDemande);
     }
     
