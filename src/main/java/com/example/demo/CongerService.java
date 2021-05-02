@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +19,11 @@ import org.flowable.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.flowable.engine.TaskService;
+import org.flowable.task.api.Task;
 
+
+import dto.TaskDetails;
 import dto.CongerRequest;
 import dto.ProcessInstanceResponse;
 
@@ -31,7 +38,8 @@ public class CongerService {
 	CongeRepository congeRepository ; 
 	
     public static final String PROCESS_DEFINITION_KEY = "Processflowconge";
-
+    public static final String TASK_CANDIDATE_GROUP = "managers";
+    TaskService taskService;
 	
 	RepositoryService repositoryService;
 	RuntimeService runtimeService;
@@ -63,6 +71,21 @@ public class CongerService {
     
     public void saveDemande(TDemande tDemande) {
     	congeRepository.save(tDemande);
+    }
+    
+    public List<TaskDetails> getManagerTasks() {
+    	List<Task> tasks = taskService.createTaskQuery().taskCandidateGroup(TASK_CANDIDATE_GROUP).list();
+    	List<TaskDetails> taskDetails = getTaskDetails(tasks);
+    	 return taskDetails;
+    }
+    
+    private List<TaskDetails> getTaskDetails(List<Task> tasks){
+    	List<TaskDetails> taskDetails = new ArrayList<>();
+    	for (Task task : tasks) {
+    		Map<String, Object> processVariables = taskService.getVariables(task.getId());
+            taskDetails.add(new TaskDetails(task.getId(), task.getName(), processVariables));
+    	}
+    	return taskDetails;
     }
     
 }

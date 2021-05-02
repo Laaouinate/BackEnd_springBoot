@@ -2,7 +2,7 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
   <process id="Processflowconge" name="Processflowconge" isExecutable="true">
     <startEvent id="startEvent1" flowable:formFieldValidation="true"></startEvent>
-    <userTask id="sid-7531C866-B5EF-41BF-976F-04C1122ED400" name="Demande conge" flowable:assignee="$INITIATOR" flowable:formFieldValidation="true">
+    <userTask id="sid-7531C866-B5EF-41BF-976F-04C1122ED400" name="Demande conge" flowable:assignee="$INITIATOR" flowable:formFieldValidation="true" flowable:candidateGroups="managers">
       <extensionElements>
         <modeler:activiti-idm-initiator xmlns:modeler="http://flowable.org/modeler"><![CDATA[true]]></modeler:activiti-idm-initiator>
       </extensionElements>
