@@ -9,8 +9,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class TaskDetails {
 
-  String taskId;
-  String taskName;
+//  String taskId;
+//  String taskName;
   Map<String, Object> taskData;
 }
 

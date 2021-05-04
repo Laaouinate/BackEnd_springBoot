@@ -37,7 +37,7 @@ public class CongerService {
 	@Autowired  
 	CongeRepository congeRepository ; 
 	
-    public static final String PROCESS_DEFINITION_KEY = "Processflowconge";
+    public static final String PROCESS_DEFINITION_KEY = "holidayRequest";
     public static final String TASK_CANDIDATE_GROUP = "managers";
     TaskService taskService;
 	
@@ -83,7 +83,9 @@ public class CongerService {
     	List<TaskDetails> taskDetails = new ArrayList<>();
     	for (Task task : tasks) {
     		Map<String, Object> processVariables = taskService.getVariables(task.getId());
-            taskDetails.add(new TaskDetails(task.getId(), task.getName(), processVariables));
+//            taskDetails.add(new TaskDetails(task.getId(), task.getName(), processVariables));
+            taskDetails.add(new TaskDetails(processVariables));
+
     	}
     	return taskDetails;
     }
