@@ -33,4 +33,10 @@ public class TDemande implements Serializable{
     
 	@Column
     private String commentaire;
+	
+	@Column
+	private String TypeConge;
+	
+	@Column
+	private String empName;
 }

@@ -36,11 +36,12 @@ public class CongerService {
 	
 	@Autowired  
 	CongeRepository congeRepository ; 
+
 	
     public static final String PROCESS_DEFINITION_KEY = "holidayRequest";
     public static final String TASK_CANDIDATE_GROUP = "managers";
     TaskService taskService;
-	
+    public static final String EMP_NAME = "empName";
 	RepositoryService repositoryService;
 	RuntimeService runtimeService;
 	
@@ -60,6 +61,8 @@ public class CongerService {
         Map<String, Object> variables = new HashMap<String, Object>();
 		   variables.put("DateDebut",tDemande.getDateDebut());
 		   variables.put("DateFin",tDemande.getDateFin());
+		   variables.put("TypeConge", tDemande.getTypeConge());
+		   variables.put("employee", tDemande.getEmpName());
 		   variables.put("Commentaire", tDemande.getCommentaire());
 
         ProcessInstance processInstance =
@@ -83,11 +86,34 @@ public class CongerService {
     	List<TaskDetails> taskDetails = new ArrayList<>();
     	for (Task task : tasks) {
     		Map<String, Object> processVariables = taskService.getVariables(task.getId());
-//            taskDetails.add(new TaskDetails(task.getId(), task.getName(), processVariables));
-            taskDetails.add(new TaskDetails(processVariables));
-
+            taskDetails.add(new TaskDetails(task.getId(), task.getName(), processVariables));
     	}
     	return taskDetails;
+    }
+    
+    public void approveHoliday(String taskId,Boolean approved) {
+
+        Map<String, Object> variables = new HashMap<String, Object>();
+        variables.put("approved", approved.booleanValue());
+        taskService.complete(taskId, variables);
+    	//System.out.println(variables);
+    }
+    
+    public List<TaskDetails> getUserTasks(String EmployeName) {
+    
+        List<Task> tasks = taskService.createTaskQuery().taskCandidateOrAssigned(EmployeName).list();
+        List<TaskDetails> taskDetails = getTaskDetails(tasks);
+    	//System.out.println(getTaskDetails(tasks));
+
+        return taskDetails;
+    }
+    
+    
+
+    
+    
+    public void acceptHoliday(String taskId) {
+        taskService.complete(taskId);
     }
     
 }

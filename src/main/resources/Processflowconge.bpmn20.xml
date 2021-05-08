@@ -31,14 +31,14 @@
         </sequenceFlow>
 
         <serviceTask id="externalSystemCall" name="Process after approval"
-                     flowable:class="org.example.tut.flowable.handler.HolidayApprovalHandler"/>
+                     flowable:class="handler.HolidayApprovalHandler"/>
         <sequenceFlow sourceRef="externalSystemCall" targetRef="holidayApprovedTask"/>
 
         <userTask id="holidayApprovedTask" name="Holiday approved" flowable:assignee="${employee}"/>
         <sequenceFlow sourceRef="holidayApprovedTask" targetRef="approveEnd"/>
 
         <serviceTask id="sendRejectionMail" name="Process After Rejction"
-                     flowable:class="org.example.tut.flowable.handler.HolidayRejectionHandler"/>
+                     flowable:class="handler.HolidayRejectionHandler"/>
         <sequenceFlow sourceRef="sendRejectionMail" targetRef="rejectEnd"/>
 
         <endEvent id="approveEnd"/>

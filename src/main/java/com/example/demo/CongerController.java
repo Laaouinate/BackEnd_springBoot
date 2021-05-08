@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,21 @@ public class CongerController {
     @GetMapping("/manager/tasks")
     public List<TaskDetails> getTasks() {
         return congerService.getManagerTasks();
+    }
+    
+    @PostMapping("/manager/approve/tasks/{taskId}/{approved}")
+    public void approveTask(@PathVariable("taskId") String taskId,@PathVariable("approved") Boolean approved){
+    	congerService.approveHoliday(taskId,approved);
+    }
+    
+    @GetMapping("/user/tasks")
+    public List<TaskDetails> getUserTasks() {
+        return congerService.getUserTasks("empName");
+    }
+    
+    @PostMapping("/user/accept/{taskId}")
+    public void acceptHoliday(@PathVariable("taskId") String taskId){
+    	congerService.acceptHoliday(taskId);
     }
     
 }
